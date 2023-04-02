@@ -8,6 +8,7 @@ class Game {
         this.in_game_time = 0;
         this.id = "Tower Defense";
         this.map = null;
+        this.cam = {x:0,y:0,z:0}
         this.state_machine_config = {
             init: 'loading',
             states:{
@@ -52,6 +53,16 @@ class Game {
         });
 
         this.state_machine.transition('init'); // go from loading to mainmenu
+    }
+
+    setcam(v3) {
+        this.cam = v3;
+        this.updatecam();
+    }
+    updatecam() {
+        console.log('Updating cam: ',this.cam)
+        let tiles = document.getElementById('tiles');
+        tiles.style.transform = "translateX(" + this.cam.x.toString() + "px) translateY(" + this.cam.y.toString() + 'px) ';
     }
 
     step = function(ts) {

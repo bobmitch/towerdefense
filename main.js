@@ -34,6 +34,30 @@ document.addEventListener('keyup',function(e){
             game.state_machine.transition('unpause');
         }
     }
+    if (e.code === 'KeyW') {
+        if (game.state_machine.state=='playing') {
+            game.cam.y += 64;
+            game.updatecam(); 
+        }
+    }
+    if (e.code === 'KeyS') {
+        if (game.state_machine.state=='playing') {
+            game.cam.y -= 64;
+            game.updatecam(); 
+        }
+    }
+    if (e.code === 'KeyA') {
+        if (game.state_machine.state=='playing') {
+            game.cam.x += 64;
+            game.updatecam(); 
+        }
+    }
+    if (e.code === 'KeyD') {
+        if (game.state_machine.state=='playing') {
+            game.cam.x -= 64;
+            game.updatecam(); 
+        }
+    }
 });
 
 document.addEventListener('wheel',function(e){

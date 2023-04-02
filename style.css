@@ -4,6 +4,7 @@
 }
 html,body {
     background:#222;
+    overflow:hidden;
 }
 html {
     font-size:18px;
@@ -26,6 +27,13 @@ html {
     opacity:1;
 }
 
+#game {
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+}
+
 .path {
     width:64px;
     height:64px;
@@ -36,4 +44,8 @@ html {
     background-position-x:-64px;
     background-position-y:-64px;
     z-index:2;
+}
+
+#tiles {
+    transition:all 0.3s ease;
 }
