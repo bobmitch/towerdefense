@@ -1,0 +1,20 @@
+* {
+    margin:0;
+    padding:0;
+}
+html,body {
+    background:#222;
+}
+html {
+    font-size:18px;
+}
+.tile {
+    width:64px;
+    height:64px;
+    /* outline:1px solid black; */
+    position:absolute;
+    background-image:url(/td/tiles/terrain_tiles_v2.png);
+    background-size:640px 1024px; /* 320px 512px default image - want 2x zoom to take 32px tileset to 64px on screen */
+    background-position-x:0px;
+    background-position-y:0px;
+}
