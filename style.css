@@ -27,7 +27,7 @@ html {
     opacity:1;
 }
 
-#game {
+#game, #map, #tiles, #entities {
     width:100vw;
     height:100vh;
     height:100dvh;
@@ -46,6 +46,25 @@ html {
     z-index:2;
 }
 
-#tiles {
+#map {
     transition:all 0.3s ease;
+    position:absolute;
+    overflow:hidden;
+    top:0;
+    left:0;
+}
+#tiles, #entities {
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+
+div.entity {
+    width:32px;
+    height:32px;
+    position:absolute;
+    background:white;
+    outline:1px solid red;
+    z-index:3;
 }

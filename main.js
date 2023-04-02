@@ -1,6 +1,10 @@
 import { Game } from './js/game.js';
+import { Sprite } from './js/sprite.js';
+import { Zombie } from './js/zombie.js';
 
 window.game = new Game();
+
+game.entities.push ( new Zombie() );
 
 document.addEventListener('keyup',function(e){
     console.log(e.code);

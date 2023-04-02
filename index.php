@@ -15,7 +15,11 @@
     </section>
 
     <section id='game'>
-        <div id='tiles'>
+        <div id='map'>
+            <div id='tiles'>
+            </div>
+            <div id='entities'>
+            </div>
         </div>
     </section>
 

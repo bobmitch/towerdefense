@@ -9,6 +9,7 @@ class Game {
         this.id = "Tower Defense";
         this.map = null;
         this.cam = {x:0,y:0,z:0}
+        this.entities = [];
         this.state_machine_config = {
             init: 'loading',
             states:{
@@ -61,8 +62,14 @@ class Game {
     }
     updatecam() {
         console.log('Updating cam: ',this.cam)
-        let tiles = document.getElementById('tiles');
-        tiles.style.transform = "translateX(" + this.cam.x.toString() + "px) translateY(" + this.cam.y.toString() + 'px) ';
+        let map = document.getElementById('map');
+        map.style.transform = "translateX(" + this.cam.x.toString() + "px) translateY(" + this.cam.y.toString() + 'px) ';
+    }
+
+    update_entities(d) {
+        this.entities.forEach(e => {
+            e.update(d, this);
+        });
     }
 
     step = function(ts) {
@@ -71,10 +78,11 @@ class Game {
         }
         if (window.game.prev_ts) {
             var delta = ts - window.game.prev_ts;
-            if (delta>0) {
-                // some time has elapsed - div by zero not possible :)
+            if (delta>0 && delta<9999) {
+                // some reasonable time has elapsed - div by zero not possible :)
                 if (window.game.state_machine.state=='playing') {
                     window.game.in_game_time += delta;
+                    window.game.update_entities(delta);
                 }
                 //console.log(window.game.in_game_time);
             }
