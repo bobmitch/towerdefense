@@ -10,11 +10,12 @@ class Sprite {
         this.z = config.z ?? 3; // z index?
         this.el = document.createElement('DIV');
         this.el.classList.add('entity');
+        this.time_alive=0;
         document.getElementById('entities').appendChild(this.el);
     }
 
     update(d, game) {
-
+        this.time_alive+=d;
     }
 
     render() {
