@@ -35,7 +35,8 @@ class Map {
         // from left edge to right edge
         var x=0;
         var y=Math.floor(Math.random() * this.height);
-        while (x<this.width-1) {
+        while (x<this.width) {
+            this.tiles[x][y].passable = true;
             if (flip()) {
                 x++;
             }
@@ -53,7 +54,7 @@ class Map {
                     y=0;
                 }
             }
-            this.tiles[x][y].passable = true;
+            
         }
     }
 
