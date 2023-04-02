@@ -24,9 +24,18 @@ class Tile {
 
         // bg tilemap is 10x16 - tile is 32px
         var tx = Math.floor(this.bg / 10) * 64;
-        var ty = (this.bg % 10) * 64;
-        tile.style.backgroundPositionX = tx.toString() + 'px';
-        tile.style.backgroundPositionY = ty.toString() + 'px';
+        var ty = (this.bg % 16) * 64;
+        tile.style.backgroundPositionX = '-' + tx.toString() + 'px';
+        tile.style.backgroundPositionY = '-' + ty.toString() + 'px';
+
+        // see if tile needs other elements inside
+        // e.g. if passable check neighbors to determine path img
+        if (this.passable) {
+            var path_el = document.createElement('DIV');
+            path_el.classList.add('path');
+            // put path el inside tile
+            tile.appendChild(path_el);
+        }
         el.appendChild(tile);
     }
 }

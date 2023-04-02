@@ -17,13 +17,23 @@ html {
     background-size:640px 1024px; /* 320px 512px default image - want 2x zoom to take 32px tileset to 64px on screen */
     background-position-x:0px;
     background-position-y:0px;
-    filter:saturate(0);
+    z-index:1;
 }
 .tile:not(.buildable) {
-    opacity:0.3;
+    opacity:0.5;
 }
 .tile.passable {
     opacity:1;
-    filter:saturate(1);
-    outline:1px solid red;
+}
+
+.path {
+    width:64px;
+    height:64px;
+    /* outline:1px solid black; */
+    position:absolute;
+    background-image:url(/td/tiles/dirtpath_tiles.png);
+    background-size:256px 256px; /* 128px 128px default image - want 2x zoom to take 32px tileset to 64px on screen */
+    background-position-x:-64px;
+    background-position-y:-64px;
+    z-index:2;
 }

@@ -19,6 +19,13 @@ document.addEventListener('keyup',function(e){
             console.log('Game started!');
         }
     }
+    if (e.code === 'Digit2') {
+        if (game.state_machine.state=='playing') {
+            game.map.make_random_path();
+            game.map.render();
+            console.log('Random path made!');
+        }
+    }
     if (e.code === 'Escape') {
         if (game.state_machine.state=='playing') {
             game.state_machine.transition('pause');
