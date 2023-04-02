@@ -17,4 +17,13 @@ html {
     background-size:640px 1024px; /* 320px 512px default image - want 2x zoom to take 32px tileset to 64px on screen */
     background-position-x:0px;
     background-position-y:0px;
+    filter:saturate(0);
+}
+.tile:not(.buildable) {
+    opacity:0.3;
+}
+.tile.passable {
+    opacity:1;
+    filter:saturate(1);
+    outline:1px solid red;
 }
