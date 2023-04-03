@@ -1,5 +1,7 @@
 import { State } from './state.js';
 import { Map } from './map.js';
+import { Sprite } from './sprite.js';
+import { Zombie } from './zombie.js';
 
 class Game {
     constructor() {
@@ -90,7 +92,8 @@ class Game {
         window.game.prev_ts = ts;
         window.requestAnimationFrame(window.game.step);
     }
-
+    
 }
 
 export { Game };
+
