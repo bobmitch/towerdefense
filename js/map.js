@@ -30,6 +30,30 @@ class Map {
         this.render();
     }
 
+    get_passable_neighbours(px,py, diag=false) {
+        // return array of passable coord pairs in map from point px,py
+        var nb=[];
+        for (var x=px-1; x<px+2; x++ ) {
+            for (var y=py-1; y<py+2; y++) {
+                if (x>0 && x<this.width && y>0 && y<this.height) {
+                    // in bounds
+                    if (this.tiles[x][y].passable) {
+                        if (diag) {
+                            nb.push({x:x,y:y});
+                        }
+                        else {
+                            // ignore diags
+                            if ( (x==px && y!=px) || (x!=px && y==py) ) {
+                                nb.push({x:x,y:y});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return nb;
+    }
+
     make_random_path() {
         // make impassable to start
         for (var x=0; x<this.width; x++) {
@@ -60,6 +84,7 @@ class Map {
                 }
             }
         }
+        console.log('final y',y);
         return y; // return final y coord of 'exit'
     }
 

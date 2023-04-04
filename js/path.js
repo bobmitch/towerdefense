@@ -1,11 +1,11 @@
 import { PQ } from './heapq.js';
 
 class Node {
-    constructor(x,y) {
+    constructor(x,y, next=null, distance=99999) {
         this.x=x;
         this.y=y;
-		this.next = null;
-		this.distance=9999999;
+		this.next = next;
+		this.distance = distance;
     }
 }
 
@@ -18,7 +18,7 @@ class Path {
         this.x2 = x2;
         this.y1 = y1;
         this.y2 = y2;
-        this.route = [];
+        this.route = []; // array of nodes with dist + next 
         // create empty 2d array
         for (var x=0; x<this.map.width; x++) {
             let c=[];
@@ -29,7 +29,8 @@ class Path {
         }
         // populate with nodes
         this.reset();
-        this.recalc();
+        let path_found = this.recalc();
+        console.warn('Path found: ',path_found);
     }
 
     reset() {
@@ -85,10 +86,42 @@ class Path {
         this.reset();
         var Q = new PQ();
         var visited = [];
-        this.route[this.x2][this.y2].next = null;
-        this.route[this.x2][this.y2].distance = 0; // distance to exit is zero :)
-        console.log('HEAPQ',Q);
-        //heappush (Q, this.route[this.x2][this.y2]);
+        var end_node = this.route[this.x2][this.y2]; 
+        end_node.distance = 0; // distance to end is 0 :)
+        end_node.next = null;
+        Q.enqueue(end_node, end_node.distance);
+        Q.dequeue();
+        let max_proc = 9999;
+        var cur_proc = 0;
+        var first_run = true;
+        while ( (Q.values.length>1 && cur_proc<max_proc) || first_run) {
+            first_run = false; // ensure run at least once - PQ thing doesn't empty on final dequeue... :/
+            cur_proc++;
+            //console.log(cur_proc);
+            var curnode = Q.dequeue().val;
+            //console.log("CURNODE: ",curnode);
+            if (!visited.includes(curnode)) {
+                visited.push(curnode);
+                var neighbours = this.map.get_passable_neighbours(curnode.x, curnode.y);
+                neighbours.forEach(neighbour => {
+                    if (neighbour.x==this.x1 && neighbour.y==this.y1) {
+                        // this is start!
+                        path_found = true;
+                    }
+                    let distance = curnode.distance+1;
+                    var neighbour_node = this.route[neighbour.x][neighbour.y];
+                    if (neighbour_node.distance > distance) {
+                        neighbour_node.next = curnode;
+                        neighbour_node.distance = distance;
+                    }
+                    if (!visited.includes(neighbour_node)) {
+                        // neighbour node not processed, put on heap for consideration
+                        Q.enqueue(neighbour_node, neighbour_node.distance);
+                    }
+                });
+            }
+        }
+        return path_found;
     }
 }
 
