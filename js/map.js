@@ -1,4 +1,5 @@
 import { Tile } from './tile.js';
+import { Path } from './path.js';
 
 function flip() {
     return ( (Math.floor(Math.random() *2))==0 );
@@ -21,7 +22,11 @@ class Map {
                 this.tiles[x][y] = tile;
             }
         }
-        this.make_random_path();
+        // random level //
+        var exit_y = this.make_random_path();
+        this.path = new Path(this, 0, Math.floor(this.height/2), this.width-1, exit_y);
+        console.log("PATH",this.path);
+        // end random level //
         this.render();
     }
 
@@ -33,8 +38,8 @@ class Map {
             }
         }
         // from left edge to right edge
-        var x=0;
-        var y=Math.floor(Math.random() * this.height);
+        var x = 0;
+        var y = Math.floor(this.height/2);
         while (x<this.width) {
             this.tiles[x][y].passable = true;
             if (flip()) {
@@ -54,8 +59,8 @@ class Map {
                     y=0;
                 }
             }
-            
         }
+        return y; // return final y coord of 'exit'
     }
 
     render() {
