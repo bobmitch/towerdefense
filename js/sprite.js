@@ -11,6 +11,7 @@ class Sprite {
         this.el = document.createElement('DIV');
         this.el.classList.add('entity');
         this.time_alive=0;
+        this.path = null;
         document.getElementById('entities').appendChild(this.el);
     }
 

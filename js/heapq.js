@@ -27,6 +27,11 @@ class PQNode {
       }
     }
     dequeue() {
+      if (this.values.length==1) {
+        const max = this.values[0];
+        this.values=[];
+        return max;
+      }
       const max = this.values[0];
       const end = this.values.pop();
       this.values[0] = end;
@@ -65,7 +70,7 @@ class PQNode {
 
   export{PQ};
   
-  /* const tree = new PQ();
+/*   const tree = new PQ();
   tree.enqueue(3, 2);
   tree.enqueue(4, 5);
   tree.enqueue(31, 1);
@@ -73,4 +78,5 @@ class PQNode {
   console.log(tree.dequeue()); // 4
   console.log(tree.dequeue()); // 6
   console.log(tree.dequeue()); // 3
-  console.log(tree.dequeue()); // 31 */
+  console.log(tree.dequeue()); // 31
+  console.log(tree.dequeue()); // ? */
