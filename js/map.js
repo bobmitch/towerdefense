@@ -43,7 +43,7 @@ class Map {
                         }
                         else {
                             // ignore diags
-                            if ( x!=px && y!=py ) {
+                            if (!(x!=px && y!=py)) {
                                 nb.push({x:x,y:y});
                             }
                         }
