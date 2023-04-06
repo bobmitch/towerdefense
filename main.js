@@ -1,5 +1,5 @@
 import { Game } from './js/game.js';
-import { Sprite } from './js/sprite.js';
+import { Entity } from './js/entity.js';
 import { Zombie } from './js/zombie.js';
 
 window.game = new Game();

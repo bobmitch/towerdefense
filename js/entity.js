@@ -1,4 +1,4 @@
-class Sprite {
+class Entity {
     constructor(config={}) {
         this.type = config.type ?? 'none';
         this.speed = 0;
@@ -24,4 +24,4 @@ class Sprite {
     }
 }
 
-export { Sprite };
+export { Entity };

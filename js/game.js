@@ -1,6 +1,6 @@
 import { State } from './state.js';
 import { Map } from './map.js';
-import { Sprite } from './sprite.js';
+import { Entity } from './entity.js';
 import { Zombie } from './zombie.js';
 
 class Game {

@@ -1,6 +1,6 @@
-import { Sprite } from './sprite.js';
+import { Entity } from './entity.js';
 
-class Zombie extends Sprite {
+class Zombie extends Entity {
     constructor(config) {
         super(config);
         this.type = 'zombie';
