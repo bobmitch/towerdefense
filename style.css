@@ -25,6 +25,8 @@ html {
 }
 .tile.passable {
     opacity:1;
+    outline: 2px solid blue;
+    z-index: 2;
 }
 
 #game, #map, #tiles, #entities {

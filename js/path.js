@@ -6,6 +6,7 @@ class Node {
         this.y=y;
 		this.next = next;
 		this.distance = distance;
+        this.visited = false;
     }
 }
 
@@ -46,16 +47,14 @@ class Path {
         var path_found = false;
         this.reset();
         var Q = new PQ();
-        var visited = [];
         var end_node = this.route[this.x2][this.y2]; 
         end_node.distance = 0; // distance to end is 0 :)
         end_node.next = null;
         Q.enqueue(end_node, end_node.distance);
-        
         while (Q.values.length>0) {
             var curnode = Q.dequeue().val;
-            if (!visited.includes(curnode)) {
-                visited.push(curnode);
+            if (!curnode.visited) {
+                curnode.visited = true;
                 var neighbours = this.map.get_passable_neighbours(curnode.x, curnode.y);
                 neighbours.forEach(neighbour => {
                     //console.log('comparing cur node: ', curnode.x, curnode.y, ' to neighbor: ', neighbour.x, neighbour.y);
@@ -69,7 +68,7 @@ class Path {
                         neighbour_node.next = curnode;
                         neighbour_node.distance = distance;
                     }
-                    if (!visited.includes(neighbour_node)) {
+                    if (!neighbour_node.visited) {
                         // neighbour node not processed, put on heap for consideration
                         Q.enqueue(neighbour_node, neighbour_node.distance);
                     }

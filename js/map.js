@@ -43,7 +43,7 @@ class Map {
                         }
                         else {
                             // ignore diags
-                            if ( (x==px && y!=px) || (x!=px && y==py) ) {
+                            if ( (x==px && y!=px) || (x!=py && y==py) ) {
                                 nb.push({x:x,y:y});
                             }
                         }
@@ -84,7 +84,6 @@ class Map {
                 }
             }
         }
-        console.log('final y',y);
         return y; // return final y coord of 'exit'
     }
 

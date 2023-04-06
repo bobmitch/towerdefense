@@ -6,8 +6,8 @@ class Zombie extends Entity {
         this.type = 'zombie';
         this.speed = 10;
         this.imageset = '/td/tiles/Zombie_Small.png';
-        this.width = 16;
-        this.height = 16;
+        this.width = 32;
+        this.height = 32;
         this.hw = this.width/2;
         this.hh = this.height/2;
         this.framecount=4;
@@ -20,7 +20,6 @@ class Zombie extends Entity {
     update(ts, game) {
         // speed
         this.x += this.speed * (1/ts);
-        this.y += this.speed * 0.5 * (1/ts);
         // set position (centered)
         this.el.style.left = (this.x - this.hw).toString() + 'px';
         this.el.style.top = (this.y - this.hh).toString() + 'px';

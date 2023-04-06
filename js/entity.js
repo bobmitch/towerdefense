@@ -5,13 +5,18 @@ class Entity {
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;
         this.framerate = config.framerate ?? 8; // fps
-        this.x = config.x ?? 0;
-        this.y = config.y ?? 0;
-        this.z = config.z ?? 3; // z index?
         this.el = document.createElement('DIV');
         this.el.classList.add('entity');
         this.time_alive=0;
-        this.path = null;
+        // initial pos based on path
+        console.log('zombie path: ',window.game.map.path);
+        this.cur_cell = window.game.map.path.route[window.game.map.path.x1][window.game.map.path.y1];
+        this.next_cell = this.cur_cell.next;
+        console.log('CUR CELL', this.cur_cell);
+        console.log('NEXT CELL', this.next_cell);
+        this.x = (this.cur_cell.x * 64) + 32; // center of init cell
+        this.y = (this.cur_cell.y * 64) + 32; // center of init cell
+        this.z = config.z ?? 3; // z index?
         document.getElementById('entities').appendChild(this.el);
     }
 
