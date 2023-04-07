@@ -1,3 +1,9 @@
+function dist(x1, y1, x2, y2) {
+    let y = x2 - x1;
+    let x = y2 - y1;
+    return Math.sqrt( x*x + y*y );
+}
+
 class Tower {
     constructor(config={}) {
         this.type = config.type ?? 'none';
@@ -9,6 +15,7 @@ class Tower {
         this.direction = [1,0];
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;
+        this.range = config.range ?? 32;
         this.framerate = config.framerate ?? 8; // fps
         this.el = document.createElement('DIV');
         this.el.classList.add('tower');
@@ -38,6 +45,17 @@ class Tower {
         else {
             console.warn('Unable to remove tower - could not determine index in array',this);
         }
+    }
+
+    get_entities_within_range() {
+        var near = [];
+        window.game.entities.forEach(e => {
+            let d = dist(this.x, this.y, e.x, e.y);
+            if (d < this.range) {
+                near.push({e:e, range:d});
+            }
+        });
+        return near;
     }
 }
 

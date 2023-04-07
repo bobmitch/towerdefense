@@ -76,6 +76,9 @@ class Game {
         this.entities.forEach(e => {
             e.update(d);
         });
+        this.towers.forEach(t => {
+            t.update(d);
+        });
     }
 
     step = function(ts) {
