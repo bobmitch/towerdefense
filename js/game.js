@@ -16,6 +16,7 @@ class Game {
         this.cam = {x:0,y:0,z:0}
         this.entities = [];
         this.towers = [];
+        this.projectiles = [];
         this.state_machine_config = {
             init: 'loading',
             states:{
