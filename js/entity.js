@@ -2,6 +2,7 @@ class Entity {
     constructor(config={}) {
         this.type = config.type ?? 'none';
         this.speed = 0;
+        this.pathindex = config.pathindex ?? 0;
         this.direction = [1,0];
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;
@@ -10,8 +11,8 @@ class Entity {
         this.el.classList.add('entity');
         this.time_alive=0;
         // initial pos based on path
-        console.log('zombie path: ',window.game.map.path);
-        this.cur_cell = window.game.map.path.route[window.game.map.path.x1][window.game.map.path.y1];
+        console.log('zombie path: ',window.game.map.paths[this.pathindex]);
+        this.cur_cell = window.game.map.paths[this.pathindex].route[window.game.map.paths[this.pathindex].x1][window.game.map.paths[this.pathindex].y1];
         this.next_cell = this.cur_cell.next;
         this.x = (this.cur_cell.x * window.game.tilesize) + window.game.htilesize; // center of init cell
         this.x = 0;
@@ -73,8 +74,8 @@ class Entity {
                 this.direction[0] = this.cur_cell.x < this.next_cell.x ? 1 : -1;
             }
 
-            this.cur_cell = window.game.map.path.route[this.next_cell.x][this.next_cell.y];
-            this.next_cell = window.game.map.path.route[this.cur_cell.next.x][this.next_cell.next.y];
+            this.cur_cell = window.game.map.paths[this.pathindex].route[this.next_cell.x][this.next_cell.y];
+            this.next_cell = window.game.map.paths[this.pathindex].route[this.cur_cell.next.x][this.next_cell.next.y];
             
             //document.getElementById(this.cur_cell.x.toString()+','+this.cur_cell.y.toString()).classList.add('curgoal');
             /* console.log('NEW');

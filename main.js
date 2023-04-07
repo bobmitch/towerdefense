@@ -29,8 +29,14 @@ document.addEventListener('keyup',function(e){
     if (e.code === 'Digit2') {
         if (game.state_machine.state=='playing') {
             game.map.make_random_path();
-            game.map.path.recalc();
+            game.map.paths[0].recalc();
             game.map.render();
+            console.log('Random path made!');
+        }
+    }
+    if (e.code === 'Digit3') {
+        if (game.state_machine.state=='playing') {
+            game.entities.push ( new Zombie({x:32,y:32,pathindex:0}) );
             console.log('Random path made!');
         }
     }

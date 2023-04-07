@@ -10,6 +10,7 @@ class Map {
         this.width = config.width ?? 24;
         this.height = config.height ?? 16;
         this.tiles=[];
+        this.paths=[];
         // empty 2d array
         for (var n=0; n<Math.max(this.height, this.width); n++) {
             this.tiles.push([]);
@@ -24,8 +25,8 @@ class Map {
         }
         // random level //
         var exit_y = this.make_random_path();
-        this.path = new Path(this, 0, Math.floor(this.height/2), this.width-1, exit_y);
-        console.log("PATH",this.path);
+        this.paths[0] = new Path(this, 0, Math.floor(this.height/2), this.width-1, exit_y);
+        console.log("PATH",this.paths);
         // end random level //
         this.render();
     }
