@@ -3,8 +3,8 @@ class Projectile {
         this.type = config.type ?? 'none';
         this.fired_by = config.fired_by ?? null;
         this.speed = 100;
-        this.width = 4;
-        this.height = 4;
+        this.width = 5;
+        this.height = 5;
         this.direction = config.direction ; // unit vector array .e.g [1,0]
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;

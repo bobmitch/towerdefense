@@ -30,11 +30,13 @@ class Tower {
         this.el = document.createElement('DIV');
         this.el.classList.add('tower');
         this.time_alive=0;
-        this.x = ((this.xcoord * window.game.tilesize) + window.game.htilesize) - this.width/2; 
-        this.y = ((this.ycoord * window.game.tilesize) + window.game.htilesize) - this.height/2; 
+        this.x = ((this.xcoord * window.game.tilesize) + window.game.htilesize); 
+        this.y = ((this.ycoord * window.game.tilesize) + window.game.htilesize); 
+        this.tlx = this.x - this.width/2; 
+        this.tly = this.y - this.width/2; 
         this.z = config.z ?? 3; // z index?
-        this.el.style.left = (this.x).toString() + 'px';
-        this.el.style.top = (this.y).toString() + 'px';
+        this.el.style.left = (this.tlx).toString() + 'px';
+        this.el.style.top = (this.tly).toString() + 'px';
         document.getElementById('towers').appendChild(this.el);
         console.log('Tower created',this);
     }

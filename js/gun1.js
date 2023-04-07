@@ -12,7 +12,7 @@ class Gun1 extends Tower {
         this.hw = this.width/2;
         this.hh = this.height/2;
         this.el.classList.add('gun1');
-        this.rof = 5; // shots per sec
+        this.rof = 1; // shots per sec
         this.last_fired = 0;
         this.angle = 0;
         console.log("Gun 1 created!");
