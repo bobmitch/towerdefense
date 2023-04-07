@@ -75,7 +75,13 @@ class Entity {
             }
 
             this.cur_cell = window.game.map.paths[this.pathindex].route[this.next_cell.x][this.next_cell.y];
-            this.next_cell = window.game.map.paths[this.pathindex].route[this.cur_cell.next.x][this.next_cell.next.y];
+            if (this.cur_cell.next) {
+                this.next_cell = window.game.map.paths[this.pathindex].route[this.cur_cell.next.x][this.next_cell.next.y];
+            }
+            else {
+                // end of the line!!!
+                this.end_of_line();
+            }
             
             //document.getElementById(this.cur_cell.x.toString()+','+this.cur_cell.y.toString()).classList.add('curgoal');
             /* console.log('NEW');
@@ -83,6 +89,21 @@ class Entity {
             console.log(this.cur_cell);
             console.log(this.next_cell); */
             //alert('next');
+        }
+    }
+
+    end_of_line() {
+        console.log('end of the line entity');
+        this.remove();
+    }
+
+    remove() {
+        let index = game.entities.indexOf(this);
+        if (index>-1) {
+            game.entities.splice(index, 1);
+        }
+        else {
+            console.warn('Unable to remove entity - could not determine index in array',this);
         }
     }
 }
