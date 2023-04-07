@@ -25,11 +25,7 @@ html {
 }
 .tile.passable {
     opacity:1;
-    outline: 2px solid blue;
     z-index: 2;
-}
-.tile.curgoal {
-    outline:4px solid red;
 }
 
 #game, #map, #tiles, #entities {
