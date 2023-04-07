@@ -28,7 +28,7 @@ html {
     z-index: 2;
 }
 
-#game, #map, #tiles, #entities {
+#game, #map, #tiles, #entities, #projectiles {
     width:100vw;
     height:100vh;
     height:100dvh;
@@ -73,9 +73,11 @@ div.tower {
 }
 
 .projectile {
-    width:10px;
-    height:10px;
+    position:absolute;
+    width:4px;
+    height:4px;
     background:red;
+    z-index:4;
 }
 
 .tower.gun1 {

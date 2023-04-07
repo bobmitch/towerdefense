@@ -80,6 +80,9 @@ class Game {
         this.towers.forEach(t => {
             t.update(d);
         });
+        this.projectiles.forEach(p => {
+            p.update(d);
+        });
     }
 
     step = function(ts) {

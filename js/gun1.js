@@ -12,7 +12,7 @@ class Gun1 extends Tower {
         this.hw = this.width/2;
         this.hh = this.height/2;
         this.el.classList.add('gun1');
-        this.rof = 1; // shots per sec
+        this.rof = 5; // shots per sec
         this.last_fired = 0;
         this.angle = 0;
         console.log("Gun 1 created!");
@@ -29,11 +29,17 @@ class Gun1 extends Tower {
                 let closest_entity = this.get_closest(near_entities);
                 if (closest_entity) {
                     // have a target - snap rotate
-                    this.angle = -90 + window.get_angle(closest_entity.x, closest_entity.y, this.x, this.y );
+                    let actual_angle = window.get_angle(this.x, this.y, closest_entity.x, closest_entity.y);
+                    this.angle = -270 + actual_angle; // rotation css angle
                     this.el.style.transform = "rotate(" + this.angle.toString() + "deg)";
-                    if ( (this.time_alive - this.last_fired) > (this.rof * 1000) ) {
+                    if ( (this.time_alive - this.last_fired) > (1/this.rof * 1000) ) {
                         // ready to fire
-                        window.game.projectiles.push ( new Projectile({x:this.x, y:this.y, fired_by:this}));
+                        let rad = actual_angle * (Math.PI/180); // todo - make faster
+                        var dir=[0,0];
+                        dir[0] = Math.cos(rad);
+                        dir[1] = Math.sin(rad);
+                        window.game.projectiles.push ( new Projectile({x:this.x, y:this.y, fired_by:this, direction:dir}));
+                        this.last_fired = this.time_alive;
                     }
                 }
             }
