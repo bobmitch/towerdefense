@@ -4,7 +4,7 @@ class Zombie extends Entity {
     constructor(config) {
         super(config);
         this.type = 'zombie';
-        this.speed = 10;
+        this.speed = 5;
         this.imageset = '/td/tiles/Zombie_Small.png';
         this.width = 32;
         this.height = 32;

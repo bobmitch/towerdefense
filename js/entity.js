@@ -98,6 +98,7 @@ class Entity {
     }
 
     remove() {
+        this.el.remove();
         let index = game.entities.indexOf(this);
         if (index>-1) {
             game.entities.splice(index, 1);
