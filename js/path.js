@@ -11,10 +11,10 @@ class Node {
 }
 
 class Path {
-    constructor(amap,x1,y1,x2,y2) {
+    constructor(amap, x1,y1,x2,y2) {
         // config requires map, x1, y1, x2, y2
         // coords determine start and end of path
-        this.map = amap; // must be passed
+        this.map = amap;
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
@@ -29,7 +29,12 @@ class Path {
             this.route.push(c);
         }
         // populate with nodes
-        this.reset();
+        for (var x=0; x<this.map.width; x++) {
+            for (var y=0; y<this.map.height; y++) {
+                this.route[x][y] = new Node(x,y);
+            }
+        }
+
         let path_found = this.recalc();
         console.warn('Path found: ',path_found);
         console.log(this.route);
@@ -38,7 +43,9 @@ class Path {
     reset() {
         for (var x=0; x<this.map.width; x++) {
             for (var y=0; y<this.map.height; y++) {
-                this.route[x][y] = new Node(x,y);
+                this.route[x][y].visited = false;
+                this.route[x][y].next = null;
+                this.route[x][y].distance = 9999;
             }
         }
     }

@@ -29,6 +29,7 @@ document.addEventListener('keyup',function(e){
     if (e.code === 'Digit2') {
         if (game.state_machine.state=='playing') {
             game.map.make_random_path();
+            game.map.path.map = game.map;
             game.map.path.recalc();
             game.map.render();
             console.log('Random path made!');
