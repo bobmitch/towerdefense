@@ -67,7 +67,7 @@ class Map {
         var y = Math.floor(this.height/2);
         while (x<this.width) {
             this.tiles[x][y].passable = true;
-            if (flip()) {
+            if (flip() && flip()) {
                 x++;
             }
             else {
