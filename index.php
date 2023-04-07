@@ -20,6 +20,8 @@
             </div>
             <div id='entities'>
             </div>
+            <div id='towers'>
+            </div>
         </div>
     </section>
 

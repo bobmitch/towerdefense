@@ -54,7 +54,7 @@ html {
     top:0;
     left:0;
 }
-#tiles, #entities {
+#tiles, #entities, #towers {
     position:absolute;
     top:0;
     left:0;
@@ -67,24 +67,38 @@ div.entity {
     position:absolute;
     z-index:3;
 }
+div.tower {
+    z-index:3;
+    position:absolute;
+}
+
+.tower.gun1 {
+    background-image:url(/td/tiles/towers_beta.png);
+    background-size: 24px 77px;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    width: 12px;
+    height: 26px;
+    filter:drop-shadow(5px 5px 3px black);
+}
 
 .entity.zombie {
     background-image:url(/td/tiles/Zombie_Small.png);
     background-size:160px 96px; /* 160 x 96 */
 }
 .entity.zombie[data-frame='0'] {
-    background-position-x:-1px;
-    background-position-y:-1px;
+    background-position-x:0px;
+    background-position-y:0px;
 } 
 .entity.zombie[data-frame='1'] {
     background-position-x:-32px;
-    background-position-y:-1px;
+    background-position-y:0px;
 }
 .entity.zombie[data-frame='2'] {
     background-position-x:-64px;
-    background-position-y:-1px;
+    background-position-y:0px;
 }
 .entity.zombie[data-frame='3'] {
     background-position-x:-96px;
-    background-position-y:-1px;
+    background-position-y:0px;
 }

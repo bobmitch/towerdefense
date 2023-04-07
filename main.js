@@ -1,10 +1,12 @@
 import { Game } from './js/game.js';
-import { Entity } from './js/entity.js';
 import { Zombie } from './js/zombie.js';
+import { Gun1 } from './js/gun1.js';
 
 window.game = new Game();
 
-
+function rr(a,b) {
+    return a + (Math.floor(Math.random() * b));
+}
 
 
 document.addEventListener('keyup',function(e){
@@ -30,6 +32,11 @@ document.addEventListener('keyup',function(e){
             game.map.paths[0].recalc();
             game.map.render();
             console.log('Random path made!');
+        }
+    }
+    if (e.code === 'Digit4') {
+        if (game.state_machine.state=='playing') {
+            game.towers.push ( new Gun1({x:rr(0,16),y:rr(0,16)}) );
         }
     }
     if (e.code === 'Digit3') {

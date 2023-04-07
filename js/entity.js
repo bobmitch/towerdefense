@@ -10,8 +10,6 @@ class Entity {
         this.el = document.createElement('DIV');
         this.el.classList.add('entity');
         this.time_alive=0;
-        // initial pos based on path
-        console.log('zombie path: ',window.game.map.paths[this.pathindex]);
         this.cur_cell = window.game.map.paths[this.pathindex].route[window.game.map.paths[this.pathindex].x1][window.game.map.paths[this.pathindex].y1];
         this.next_cell = this.cur_cell.next;
         this.x = (this.cur_cell.x * window.game.tilesize) + window.game.htilesize; // center of init cell

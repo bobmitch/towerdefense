@@ -2,6 +2,7 @@ import { State } from './state.js';
 import { Map } from './map.js';
 import { Entity } from './entity.js';
 import { Zombie } from './zombie.js';
+import { Gun1 } from './gun1.js';
 
 class Game {
     constructor() {
@@ -14,6 +15,7 @@ class Game {
         this.htilesize = 32;
         this.cam = {x:0,y:0,z:0}
         this.entities = [];
+        this.towers = [];
         this.state_machine_config = {
             init: 'loading',
             states:{
