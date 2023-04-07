@@ -21,8 +21,6 @@ document.addEventListener('keyup',function(e){
         if (game.state_machine.state=='mainmenu') {
             game.map = new Map();
             game.state_machine.transition('start');
-            // test add entity
-            game.entities.push ( new Zombie({x:32,y:32}) );
             console.log('Game started!');
         }
     }
