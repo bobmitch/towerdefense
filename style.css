@@ -60,6 +60,23 @@ html {
     left:0;
 }
 
+.entity .hb {
+    height:4px;
+    z-index:4;
+    width:100%;
+    background:#8f8;
+    border:1px solid black;
+    opacity:0.3;
+}
+.hb[data-status="ok"] {
+    background:#fd8;
+}
+.hb[data-status="bad"] {
+    background:#f88;
+}
+.hb[data-status="dire"] {
+    background:#f00;
+}
 
 div.entity {
     width:32px;

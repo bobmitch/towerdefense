@@ -5,6 +5,8 @@ class Projectile {
         this.speed = 100;
         this.width = 5;
         this.height = 5;
+        this.damage = 1;
+        this.r = this.width/2; // radius, hitbox
         this.direction = config.direction ; // unit vector array .e.g [1,0]
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;
@@ -16,6 +18,13 @@ class Projectile {
         this.y = config.y - this.height/2; 
         this.z = config.z ?? 3; // z index?
         document.getElementById('projectiles').appendChild(this.el);
+    }
+
+    intersect(x2, y2, r2){
+        var dx = x2 - this.x;
+        var dy = y2 - this.y;
+        var magnitude = Math.sqrt(dx * dx + dy * dy);
+        return magnitude < this.r + r2;
     }
 
     update(d) {
@@ -42,9 +51,20 @@ class Projectile {
                 // projectile OUT OF BOUNDS
             this.remove();
         }
+        else {
+            // collision checks
+            game.entities.forEach(e => {
+                if (this.intersect(e.x, e.y, e.r)) {
+                    // hit entity
+                    e.damage(this.damage);
+                    // kill this projectile
+                    this.remove();
+                }
+            });
+        }
     }
 
-   
+
 
     remove() {
         this.el.remove();

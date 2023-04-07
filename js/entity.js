@@ -2,13 +2,21 @@ class Entity {
     constructor(config={}) {
         this.type = config.type ?? 'none';
         this.speed = 0;
+        this.max_health = 5;
+        this.health = 5;
         this.pathindex = config.pathindex ?? 0;
         this.direction = [1,0];
+        this.r = 8; // radius, for hitbox ostensibly
         this.frame = config.frame ?? 0;
         this.framecount = config.frame ?? 1;
         this.framerate = config.framerate ?? 8; // fps
         this.el = document.createElement('DIV');
         this.el.classList.add('entity');
+        this.hb = document.createElement('DIV');
+        this.hb.classList.add('hb');
+        this.hb.dataset.status = "full";
+        this.el.appendChild(this.hb); // add healthbar to entity div
+        document.getElementById('entities').appendChild(this.el);
         this.time_alive=0;
         this.cur_cell = window.game.map.paths[this.pathindex].route[window.game.map.paths[this.pathindex].x1][window.game.map.paths[this.pathindex].y1];
         this.next_cell = this.cur_cell.next;
@@ -16,7 +24,29 @@ class Entity {
         this.x = 0;
         this.y = (this.cur_cell.y * window.game.tilesize) + window.game.htilesize; // center of init cell
         this.z = config.z ?? 3; // z index?
-        document.getElementById('entities').appendChild(this.el);
+    }
+
+    damage(amount) {
+        this.health -= amount;
+        if (this.health<=0) {
+            this.remove();
+        }
+        else {
+            let hpc = 100/(this.max_health / this.health);
+            if (hpc>80) {
+                this.hb.dataset.status = 'fine';
+            }
+            else if (hpc>50) {
+                this.hb.dataset.status = 'ok';
+            }
+            else if (hpc>25) {
+                this.hb.dataset.status = 'bad';
+            }
+            else {
+                this.hb.dataset.status = 'dire';
+            }
+            this.hb.style.width = (hpc).toString() + '%';
+        }
     }
 
     update(d) {
@@ -29,13 +59,17 @@ class Entity {
         else {
             this.y += this.speed * (this.direction[1]/d);
         }
+        
         // set position (centered)
         this.el.style.left = (this.x - this.hw).toString() + 'px';
         this.el.style.top = (this.y - this.hh).toString() + 'px';
+
         // animation frame
         this.frame = Math.floor( (this.time_alive/this.framerate/10) % this.framecount);
         this.el.dataset.frame = this.frame;
+
         //console.log(this.frame);
+
         // check path situation
         // update path
         this.path_update();
