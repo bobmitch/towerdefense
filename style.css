@@ -74,10 +74,11 @@ div.tower {
 
 .projectile {
     position:absolute;
-    width:4px;
-    height:4px;
+    width:5px;
+    height:5px;
     background:red;
     z-index:4;
+    filter:drop-shadow(5px 5px 3px black);
 }
 
 .tower.gun1 {
