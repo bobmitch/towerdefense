@@ -35,7 +35,6 @@ document.addEventListener('keyup',function(e){
     if (e.code === 'Digit3') {
         if (game.state_machine.state=='playing') {
             game.entities.push ( new Zombie({x:32,y:32,pathindex:0}) );
-            console.log('Random path made!');
         }
     }
     if (e.code === 'Escape') {
