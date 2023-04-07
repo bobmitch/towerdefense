@@ -4,6 +4,16 @@ function dist(x1, y1, x2, y2) {
     return Math.sqrt( x*x + y*y );
 }
 
+window.get_angle = function(cx, cy, ex, ey) {
+    // from https://stackoverflow.com/questions/9614109/how-to-calculate-an-angle-from-points
+    var dy = ey - cy;
+    var dx = ex - cx;
+    var theta = Math.atan2(dy, dx); // range (-PI, PI]
+    theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    //if (theta < 0) theta = 360 + theta; // range [0, 360)
+    return theta;
+}
+
 class Tower {
     constructor(config={}) {
         this.type = config.type ?? 'none';
@@ -52,10 +62,23 @@ class Tower {
         window.game.entities.forEach(e => {
             let d = dist(this.x, this.y, e.x, e.y);
             if (d < this.range) {
-                near.push({e:e, range:d});
+                near.push({entity:e, range:d});
             }
         });
         return near;
+    }
+
+    get_closest(nearlist) {
+        // nearlist is array of objects {entity, range}
+        var closest = null;
+        var min_d = 99999;
+        nearlist.forEach(n => {
+            if (n.range < min_d) {
+                closest = n.entity;
+                min_d = n.range;
+            }
+        });
+        return closest;
     }
 }
 

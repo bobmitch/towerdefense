@@ -4,13 +4,14 @@ class Gun1 extends Tower {
     constructor(config) {
         super(config);
         this.type = 'gun1';
-        this.range = 64;
+        this.range = 256;
         this.rotates = true;
-        this.target = 'nearest';
+        this.target_method = 'closest';
         this.imageset = '/td/tiles/towers_beta.png';
         this.hw = this.width/2;
         this.hh = this.height/2;
         this.el.classList.add('gun1');
+        this.angle = 0;
         console.log("Gun 1 created!");
     }
 
@@ -21,7 +22,14 @@ class Gun1 extends Tower {
         this.el.dataset.frame = this.frame;
         let near_entities = this.get_entities_within_range();
         if (near_entities.length>0) {
-            console.log(near_entities);
+            if (this.target_method=='closest') {
+                let closest_entity = this.get_closest(near_entities);
+                if (closest_entity) {
+                    // have a target - snap rotate
+                    this.angle = -90 + window.get_angle(closest_entity.x, closest_entity.y, this.x, this.y );
+                    this.el.style.transform = "rotate(" + this.angle.toString() + "deg)";
+                }
+            }
         }
     }
 
