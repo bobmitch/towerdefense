@@ -1,6 +1,8 @@
 class Tile {
     constructor(config) {
         this.bg = Math.floor(Math.random()*160);
+        //this.bg = 53; // grass
+        this.bg = 113; // brown
         this.passable = config.passable ?? true;
         this.buildable = config.buildable ?? true;
         this.x = config.x ?? 0;
