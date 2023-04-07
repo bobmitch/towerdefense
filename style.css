@@ -28,6 +28,9 @@ html {
     outline: 2px solid blue;
     z-index: 2;
 }
+.tile.curgoal {
+    outline:4px solid red;
+}
 
 #game, #map, #tiles, #entities {
     width:100vw;

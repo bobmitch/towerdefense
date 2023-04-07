@@ -10,6 +10,8 @@ class Game {
         this.in_game_time = 0;
         this.id = "Tower Defense";
         this.map = null;
+        this.tilesize = 64;
+        this.htilesize = 32;
         this.cam = {x:0,y:0,z:0}
         this.entities = [];
         this.state_machine_config = {
@@ -70,7 +72,7 @@ class Game {
 
     update_entities(d) {
         this.entities.forEach(e => {
-            e.update(d, this);
+            e.update(d);
         });
     }
 

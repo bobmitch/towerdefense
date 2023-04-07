@@ -17,22 +17,6 @@ class Zombie extends Entity {
         console.log(this);
     }
 
-    update(ts, game) {
-        // speed
-        this.x += this.speed * (1/ts);
-        // set position (centered)
-        this.el.style.left = (this.x - this.hw).toString() + 'px';
-        this.el.style.top = (this.y - this.hh).toString() + 'px';
-        // frame
-        this.time_alive+=ts;
-        this.frame = Math.floor( (this.time_alive/this.framerate/10) % this.framecount);
-        this.el.dataset.frame = this.frame;
-        //console.log(this.frame);
-    }
-
-    render() {
-
-    }
 }
 
 export { Zombie };

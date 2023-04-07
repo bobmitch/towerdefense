@@ -97,12 +97,15 @@ class Tile {
         tile.dataset.tile = this.bg;
         tile.dataset.x = this.x;
         tile.dataset.y = this.y;
+        tile.id = this.x.toString() + "," + this.y.toString();
         if (this.passable) {
             tile.classList.add('passable');
         }
         if (this.buildable) {
             tile.classList.add('buildable');
         }
+
+        // tile.innerText = tile.id;
 
         // bg tilemap is 10x16 - tile is 32px
         var tx = Math.floor(this.bg / 10) * 64;
