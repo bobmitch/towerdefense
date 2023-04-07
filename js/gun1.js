@@ -1,4 +1,5 @@
 import { Tower } from './tower.js';
+import { Projectile } from './projectile.js';
 
 class Gun1 extends Tower {
     constructor(config) {
@@ -11,6 +12,8 @@ class Gun1 extends Tower {
         this.hw = this.width/2;
         this.hh = this.height/2;
         this.el.classList.add('gun1');
+        this.rof = 1; // shots per sec
+        this.last_fired = 0;
         this.angle = 0;
         console.log("Gun 1 created!");
     }
@@ -28,6 +31,10 @@ class Gun1 extends Tower {
                     // have a target - snap rotate
                     this.angle = -90 + window.get_angle(closest_entity.x, closest_entity.y, this.x, this.y );
                     this.el.style.transform = "rotate(" + this.angle.toString() + "deg)";
+                    if ( (this.time_alive - this.last_fired) > (this.rof * 1000) ) {
+                        // ready to fire
+                        window.game.projectiles.push ( new Projectile({x:this.x, y:this.y, fired_by:this}));
+                    }
                 }
             }
         }

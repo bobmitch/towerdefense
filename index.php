@@ -22,6 +22,8 @@
             </div>
             <div id='towers'>
             </div>
+            <div id='projectiles'>
+            </div>
         </div>
     </section>
 

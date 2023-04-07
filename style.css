@@ -72,6 +72,12 @@ div.tower {
     position:absolute;
 }
 
+.projectile {
+    width:10px;
+    height:10px;
+    background:red;
+}
+
 .tower.gun1 {
     background-image:url(/td/tiles/towers_beta.png);
     background-size: 24px 77px;
