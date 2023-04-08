@@ -18,6 +18,7 @@ class Path {
         this.x2 = x2;
         this.y1 = y1;
         this.y2 = y2;
+        this.path_found = false;
         this.route = []; // array of nodes with dist + next 
         // create empty 2d array
         for (var x=0; x<this.map.width; x++) {
@@ -34,8 +35,9 @@ class Path {
             }
         }
 
-        let path_found = this.recalc();
-        if (!path_found) {
+        this.recalc(); // will set this.path_found
+
+        if (!this.path_found) {
             console.warn('Path not found: ', this);
         }
         else {
@@ -54,7 +56,7 @@ class Path {
     }
 
     recalc() {
-        var path_found = false;
+        this.path_found = false;
         this.reset();
         var Q = [];
         var end_node = this.route[this.x2][this.y2]; 
@@ -64,12 +66,12 @@ class Path {
         while (Q.length>0) {
             var curnode = Q.pop();
             if (!curnode.visited) {
-                var neighbours = this.map.get_passable_neighbours(curnode.x, curnode.y);
+                var neighbours = game.map.get_passable_neighbours(curnode.x, curnode.y);
                 neighbours.forEach(neighbour => {
-                    //console.log('comparing cur node: ', curnode.x, curnode.y, ' to neighbor: ', neighbour.x, neighbour.y);
-                    if (neighbour.x==curnode.x && neighbour.y==curnode.y) {
+                    //console.log('checking if we hit start of ',this.x1,this.y1,' against curnode ',curnode.x,curnode.y);
+                    if (curnode.x==this.x1 && curnode.y==this.y1) {
                         // this is start!
-                        path_found = true;
+                        this.path_found = true;
                     }
                     let distance = curnode.distance+1;
                     var neighbour_node = this.route[neighbour.x][neighbour.y];
@@ -85,8 +87,7 @@ class Path {
                 curnode.visited = true; // full processed node
             }
         }
-        
-        return path_found;
+        return this.path_found;
     }
 }
 

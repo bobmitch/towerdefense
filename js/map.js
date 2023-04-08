@@ -34,6 +34,9 @@ class Map {
         var nb=[];
         for (var x=px-1; x<px+2; x++ ) {
             for (var y=py-1; y<py+2; y++) {
+                if (x==px && y==py) {
+                    continue; // ignore self please
+                }
                 if (x>=0 && x<this.width && y>=0 && y<this.height) {
                     // in bounds
                     if (this.tiles[x][y].passable) {

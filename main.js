@@ -2,6 +2,8 @@ import { Game } from './js/game.js';
 import { Zombie } from './js/zombie.js';
 import { Zoomie } from './js/zoomie.js';
 import { Gun1 } from './js/gun1.js';
+import { Barrier } from './js/barrier.js';
+import { Path } from './js/path.js';
 
 window.game = new Game();
 window.debug = false;
@@ -14,8 +16,9 @@ window.pick_up_tower = function(tower_btn) {
     let cost = parseInt(tower_btn.dataset.cost);
     if (cost<=game.money) {
         game.place_tower = tower_btn.dataset.tower;
+        game.place_tower_placement = tower_btn.dataset.placement;
         game.place_tower_cost = cost;
-        document.body.dataset.mode = 'place_tower';
+        document.body.dataset.mode = 'place_tower_' + game.place_tower_placement;
     }
     else {
         // can't afford it
@@ -24,14 +27,43 @@ window.pick_up_tower = function(tower_btn) {
 }
 
 document.addEventListener('click',function(e){
-    if (document.body.dataset.mode=='place_tower' && e.target.classList.contains('tile') && e.target.classList.contains('buildable')) {
-        // place tower
+    if ( (document.body.dataset.mode=='place_tower_buildable' || document.body.dataset.mode=='place_tower_both') && e.target.classList.contains('tile') && e.target.classList.contains('buildable')) {
+        // place buildable/both tower
         let x = parseInt(e.target.dataset.x);
         let y = parseInt(e.target.dataset.y);
-        game.towers.push ( new Gun1({x:x,y:y}) );
+        // dynamically generate tower instance
+        eval(`
+            game.towers.push ( new ${game.place_tower} ({x:x,y:y}) );
+        `);
         game.place_tower = null;
         document.body.dataset.mode=null;
         game.decmoney(game.place_tower_cost);
+    }
+    if ( (document.body.dataset.mode=='place_tower_path' || document.body.dataset.mode=='place_tower_both') && e.target.classList.contains('tile') && e.target.classList.contains('passable')) {
+        // place path/both tower
+        // TODO: check path is good! (ie. not blocking exit)
+        // also check no entities in 'cell' when placed
+        let x = parseInt(e.target.dataset.x);
+        let y = parseInt(e.target.dataset.y);
+        // check via temp path
+        game.map.tiles[x][y].passable = false; // temp set to false for path check
+        let temp_path = new Path(window.game.map, 0, Math.floor(window.game.map.height/2), window.game.map.width-1, Math.floor(window.game.map.height/2));
+        console.log('TEMP PATH',temp_path);
+        if (!temp_path.path_found) {
+            console.warn('Exit blocked - invalid barrier');
+            game.map.tiles[x][y].passable = true; // set back to true
+        }
+        else {
+            game.map.tiles[x][y].buildable = true;
+            /* eval(`
+                game.towers.push ( new ${game.place_tower} ({x:x,y:y}) );
+            `); */
+            game.map.paths[0].recalc();
+            //game.place_tower = null;
+            document.body.dataset.mode=null;
+            game.decmoney(game.place_tower_cost);
+            window.game.map.render();
+        }  
     }
 });
 

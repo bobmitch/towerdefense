@@ -28,11 +28,20 @@ html {
     z-index: 2;
 }
 
-body[data-mode="place_tower"] .tile.buildable {
+:is(body[data-mode="place_tower_both"], body[data-mode="place_tower_buildable"]) .tile.buildable {
     outline:1px solid #666;
     z-index:3;
 }
-body[data-mode="place_tower"] .tile.buildable:hover {
+:is(body[data-mode="place_tower_both"], body[data-mode="place_tower_buildable"]) .tile.buildable:hover {
+    outline:1px solid #8f8;
+    z-index:4;
+}
+
+:is(body[data-mode="place_tower_both"], body[data-mode="place_tower_path"]) .tile.passable {
+    outline:1px solid #666;
+    z-index:3;
+}
+:is(body[data-mode="place_tower_both"], body[data-mode="place_tower_path"]) .tile.passable:hover {
     outline:1px solid #8f8;
     z-index:4;
 }
@@ -64,6 +73,7 @@ body[data-mode="place_tower"] .tile.buildable:hover {
     background-position-x:-64px;
     background-position-y:-64px;
     z-index:2;
+    pointer-events:none;
 }
 
 #map {
@@ -120,6 +130,17 @@ div.tower {
 .tower.gun1 {
     background-image:url(/td/tiles/towers_beta.png);
     background-size: 24px 77px;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    width: 12px;
+    height: 26px;
+    filter:drop-shadow(0px 0px 4px black);
+}
+
+.tower.barrier {
+    background-color:brown;
+    background-size: 24px 24px;
+    border-radius:100%;
     background-position-x: 0px;
     background-position-y: 0px;
     width: 12px;
