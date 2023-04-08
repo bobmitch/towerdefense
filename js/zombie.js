@@ -6,11 +6,11 @@ class Zombie extends Entity {
         this.type = 'zombie';
         this.speed = 10;
         this.points = 100;
-        this.money = 10;
+        this.money = 30;
         this.imageset = '/td/tiles/Zombie_Small.png';
         this.width = 32;
-        this.max_health = 5;
-        this.health = 5;
+        this.max_health = 12;
+        this.health = this.max_health;
         this.r = this.width / 2;
         this.height = 32;
         this.hw = this.width/2;

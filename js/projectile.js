@@ -2,7 +2,7 @@ class Projectile {
     constructor(config={}) {
         this.type = config.type ?? 'none';
         this.fired_by = config.fired_by ?? null;
-        this.speed = 100;
+        this.speed = 40;
         this.width = 5;
         this.height = 5;
         this.damage = 1;
@@ -54,9 +54,9 @@ class Projectile {
         else {
             // collision checks
             for (var n=0; n<game.entities.length; n++) {
-                if (this.intersect(e.x, e.y, e.r)) {
+                if (this.intersect(game.entities[n].x, game.entities[n].y, game.entities[n].r)) {
                     // hit entity
-                    e.damage(this.damage);
+                    game.entities[n].damage(this.damage);
                     // kill this projectile
                     this.remove();
                     break; // end loop - don't check against other enemies by default
