@@ -7,8 +7,8 @@ function flip() {
 
 class Map {
     constructor(config) {
-        this.width = config.width ?? 16;
-        this.height = config.height ?? 11;
+        this.width = config.width ?? 24;
+        this.height = config.height ?? 16;
         this.tiles=[];
         this.paths=[];
         // empty 2d array

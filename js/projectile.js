@@ -5,7 +5,7 @@ class Projectile {
         this.speed = 40;
         this.width = 5;
         this.height = 5;
-        this.damage = 1;
+        this.damage = 2;
         this.r = this.width/2; // radius, hitbox
         this.direction = config.direction ; // unit vector array .e.g [1,0]
         this.frame = config.frame ?? 0;
