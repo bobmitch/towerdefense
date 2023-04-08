@@ -8,6 +8,31 @@ function rr(a,b) {
     return a + (Math.floor(Math.random() * b));
 }
 
+window.pick_up_tower = function(tower_btn) {
+    let cost = parseInt(tower_btn.dataset.cost);
+    if (cost<=game.money) {
+        game.place_tower = tower_btn.dataset.tower;
+        game.place_tower_cost = cost;
+        document.body.dataset.mode = 'place_tower';
+    }
+    else {
+        // can't afford it
+        console.warn('Not enough money sir');
+    }
+}
+
+document.addEventListener('click',function(e){
+    if (document.body.dataset.mode=='place_tower' && e.target.classList.contains('tile') && e.target.classList.contains('buildable')) {
+        // place tower
+        let x = parseInt(e.target.dataset.x);
+        let y = parseInt(e.target.dataset.y);
+        game.towers.push ( new Gun1({x:x,y:y}) );
+        game.place_tower = null;
+        document.body.dataset.mode=null;
+        game.decmoney(game.place_tower_cost);
+    }
+});
+
 
 document.addEventListener('keyup',function(e){
     console.log(e.code);

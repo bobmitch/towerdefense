@@ -6,6 +6,11 @@ import { Gun1 } from './gun1.js';
 
 class Game {
     constructor() {
+        this.place_tower = null;
+        this.place_tower_cost = 0;
+        this.lives = 50;
+        this.money = 200;
+        this.score = 0;
         this.start_ts = null;
         this.prev_ts = null;
         this.in_game_time = 0;
@@ -61,6 +66,31 @@ class Game {
         });
 
         this.state_machine.transition('init'); // go from loading to mainmenu
+
+        this.setmoney(this.money);
+    }
+
+    setmoney(v) {
+        this.money = v;
+        document.getElementById('money').innerText = this.money;
+    }
+    incmoney(v) {
+        this.money = this.money + v;
+        document.getElementById('money').innerText = this.money;
+    }
+    decmoney(v) {
+        this.money = this.money - v;
+        document.getElementById('money').innerText = this.money;
+    }
+
+    incscore(v) {
+        this.score += v;
+        document.getElementById('score').innerText = this.score;
+    }
+
+    declives() {
+        this.lives--;
+        document.getElementById('lives').innerText = this.lives;
     }
 
     setcam(v3) {

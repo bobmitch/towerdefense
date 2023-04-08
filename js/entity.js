@@ -4,6 +4,8 @@ class Entity {
         this.speed = 0;
         this.max_health = 5;
         this.health = 5;
+        this.points = 100;
+        this.money = 10;
         this.pathindex = config.pathindex ?? 0;
         this.direction = [1,0];
         this.r = 8; // radius, for hitbox ostensibly
@@ -29,6 +31,8 @@ class Entity {
     damage(amount) {
         this.health -= amount;
         if (this.health<=0) {
+            game.incmoney(this.money); 
+            game.incscore(this.points); // todo: increase score based on path distance / time remaining in swarm / number of active swarms etc
             this.remove();
         }
         else {
@@ -113,6 +117,7 @@ class Entity {
             else {
                 // end of the line!!!
                 this.end_of_line();
+                game.declives();
             }
             
             //document.getElementById(this.cur_cell.x.toString()+','+this.cur_cell.y.toString()).classList.add('curgoal');

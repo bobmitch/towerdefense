@@ -25,6 +25,18 @@
             <div id='projectiles'>
             </div>
         </div>
+        <div id='sidepanel'>
+            <div id='info'>
+                <p>Score: <span id='score'>0</span></p>
+                <p>Money: <span id='money'>0</span></p>
+                <p>Lives: <span id='lives'>50</span></p>
+            </div>
+            <div id='buildmenu'>
+                <ul>
+                    <li><button onclick='pick_up_tower(this)' data-tower='Gun1' data-cost='100'>Gun 1</button></li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <script type='module' src='/td/main.js'></script>

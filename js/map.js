@@ -7,8 +7,8 @@ function flip() {
 
 class Map {
     constructor(config) {
-        this.width = config.width ?? 24;
-        this.height = config.height ?? 16;
+        this.width = config.width ?? 16;
+        this.height = config.height ?? 11;
         this.tiles=[];
         this.paths=[];
         // empty 2d array
@@ -60,6 +60,7 @@ class Map {
         for (var x=0; x<this.width; x++) {
             for (var y=0; y<this.height; y++) {
                 this.tiles[x][y].passable = false;
+                this.tiles[x][y].buildable = true;
             }
         }
         // from left edge to right edge
@@ -67,6 +68,7 @@ class Map {
         var y = Math.floor(this.height/2);
         while (x<this.width) {
             this.tiles[x][y].passable = true;
+            this.tiles[x][y].buildable = false;
             if (flip() && flip()) {
                 x++;
             }

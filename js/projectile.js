@@ -53,14 +53,15 @@ class Projectile {
         }
         else {
             // collision checks
-            game.entities.forEach(e => {
+            for (var n=0; n<game.entities.length; n++) {
                 if (this.intersect(e.x, e.y, e.r)) {
                     // hit entity
                     e.damage(this.damage);
                     // kill this projectile
                     this.remove();
+                    break; // end loop - don't check against other enemies by default
                 }
-            });
+            };
         }
     }
 

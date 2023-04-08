@@ -28,6 +28,15 @@ html {
     z-index: 2;
 }
 
+body[data-mode="place_tower"] .tile.buildable {
+    outline:1px solid #666;
+    z-index:3;
+}
+body[data-mode="place_tower"] .tile.buildable:hover {
+    outline:1px solid #8f8;
+    z-index:4;
+}
+
 #game, #map, #tiles, #entities, #projectiles {
     width:100vw;
     height:100vh;
@@ -127,4 +136,17 @@ div.tower {
 .entity.zombie[data-frame='3'] {
     background-position-x:-96px;
     background-position-y:0px;
+}
+
+#sidepanel {
+    position:absolute;
+    top:0;
+    right:0;
+    width:15rem;
+    padding:2rem;
+    background:#222;
+    color:#eee;
+    height:100vh;
+    height:100dvh;
+    border-left:1px solid #aaa;
 }
