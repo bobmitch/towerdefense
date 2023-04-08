@@ -127,23 +127,23 @@ div.tower {
     filter:drop-shadow(0px 0px 4px black);
 }
 
-.entity.zombie {
+.entity.zombie, .entity.zoomie {
     background-image:url(/td/tiles/Zombie_Small.png);
     background-size:160px 96px; /* 160 x 96 */
 }
-.entity.zombie[data-frame='0'] {
+.entity.zombie[data-frame='0'], .entity.zoomie[data-frame='0'] {
     background-position-x:0px;
     background-position-y:0px;
 } 
-.entity.zombie[data-frame='1'] {
+.entity.zombie[data-frame='1'], .entity.zoomie[data-frame='0'] {
     background-position-x:-32px;
     background-position-y:0px;
 }
-.entity.zombie[data-frame='2'] {
+.entity.zombie[data-frame='2'], .entity.zoomie[data-frame='0'] {
     background-position-x:-64px;
     background-position-y:0px;
 }
-.entity.zombie[data-frame='3'] {
+.entity.zombie[data-frame='3'], .entity.zoomie[data-frame='0'] {
     background-position-x:-96px;
     background-position-y:0px;
 }

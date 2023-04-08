@@ -1,5 +1,6 @@
 import { Game } from './js/game.js';
 import { Zombie } from './js/zombie.js';
+import { Zoomie } from './js/zoomie.js';
 import { Gun1 } from './js/gun1.js';
 
 window.game = new Game();
@@ -71,7 +72,7 @@ document.addEventListener('keyup',function(e){
     }
     if (e.code === 'Digit4') {
         if (game.state_machine.state=='playing') {
-            game.towers.push ( new Gun1({x:rr(0,16),y:rr(0,16)}) );
+            game.entities.push ( new Zoomie({x:32,y:32,pathindex:0}) );
         }
     }
     if (e.code === 'Digit3') {

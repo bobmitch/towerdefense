@@ -1,4 +1,3 @@
-import { PQ } from './heapq.js';
 
 class Node {
     constructor(x,y, next=null, distance=99999) {
@@ -57,13 +56,13 @@ class Path {
     recalc() {
         var path_found = false;
         this.reset();
-        var Q = new PQ();
+        var Q = [];
         var end_node = this.route[this.x2][this.y2]; 
         end_node.distance = 0; // distance to end is 0 :)
         end_node.next = null;
-        Q.enqueue(end_node, end_node.distance);
-        while (Q.values.length>0) {
-            var curnode = Q.dequeue().val;
+        Q.push(end_node);
+        while (Q.length>0) {
+            var curnode = Q.pop();
             if (!curnode.visited) {
                 var neighbours = this.map.get_passable_neighbours(curnode.x, curnode.y);
                 neighbours.forEach(neighbour => {
@@ -80,7 +79,7 @@ class Path {
                     }
                     if (!neighbour_node.visited) {
                         // neighbour node not processed, put on heap for consideration
-                        Q.enqueue(neighbour_node, distance);
+                        Q.push(neighbour_node);
                     }
                 });
                 curnode.visited = true; // full processed node
