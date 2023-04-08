@@ -62,15 +62,15 @@ class Game {
                 window.game.start_ts = null;
                 window.game.map = new Map('random'); 
                 window.game.map.paths.push (new Path(window.game.map, 0, Math.floor(window.game.map.height/2), window.game.map.width-1, Math.floor(window.game.map.height/2)));
-                // debug
-                for (var x=0; x<game.map.width; x++) {
-                    for (var y=0; y<game.map.height; y++) {
-                        let tn = document.createElement('P');
-                        tn.innerText = game.map.paths[0].route[x][y].distance;
-                        document.getElementById(x.toString() + "," + y.toString()).appendChild(tn);
+                if (window.debug) {
+                    for (var x=0; x<game.map.width; x++) {
+                        for (var y=0; y<game.map.height; y++) {
+                            let tn = document.createElement('P');
+                            tn.innerText = game.map.paths[0].route[x][y].distance;
+                            document.getElementById(x.toString() + "," + y.toString()).appendChild(tn);
+                        }
                     }
                 }
-                // end debug
                 window.requestAnimationFrame(window.game.step);
                 console.log('starting new game');
             }
