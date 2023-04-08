@@ -65,7 +65,6 @@ class Path {
         while (Q.values.length>0) {
             var curnode = Q.dequeue().val;
             if (!curnode.visited) {
-                curnode.visited = true;
                 var neighbours = this.map.get_passable_neighbours(curnode.x, curnode.y);
                 neighbours.forEach(neighbour => {
                     //console.log('comparing cur node: ', curnode.x, curnode.y, ' to neighbor: ', neighbour.x, neighbour.y);
@@ -81,9 +80,10 @@ class Path {
                     }
                     if (!neighbour_node.visited) {
                         // neighbour node not processed, put on heap for consideration
-                        Q.enqueue(neighbour_node, neighbour_node.distance);
+                        Q.enqueue(neighbour_node, distance);
                     }
                 });
+                curnode.visited = true; // full processed node
             }
         }
         
