@@ -24,9 +24,7 @@ class Map {
             }
         }
         // random level //
-        var exit_y = this.make_random_path();
-        this.paths[0] = new Path(this, 0, Math.floor(this.height/2), this.width-1, exit_y);
-        console.log("PATH",this.paths);
+        this.make_random_path();
         // end random level //
         this.render();
     }
@@ -66,9 +64,16 @@ class Map {
         // from left edge to right edge
         var x = 0;
         var y = Math.floor(this.height/2);
+        let start_end_y = Math.floor(this.height/2);
+        var history=[];
         while (x<this.width) {
+            if (x==this.width-1 && y==start_end_y) {
+                // reached exit
+                break;
+            }
             this.tiles[x][y].passable = true;
             this.tiles[x][y].buildable = false;
+            history.push({x:x,y:y});
             if (flip() && flip()) {
                 x++;
             }
@@ -85,6 +90,15 @@ class Map {
                 if (y<0) {
                     y=0;
                 }
+            }
+            if (x<this.width-5 && history.length>0 && flip() && flip() && flip() && flip()) {
+                // revisit old visited square randomly - but not near right hand edge
+                var r = Math.floor(Math.random() * history.length);
+                x = history[r].x;
+                y = history[r].y;
+            }
+            if (x>=this.width) {
+                x=this.width-1;
             }
         }
         return y; // return final y coord of 'exit'

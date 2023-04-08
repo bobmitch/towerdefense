@@ -57,6 +57,15 @@ document.addEventListener('keyup',function(e){
             game.map.paths[0].recalc();
             game.map.render();
             console.log('Random path made!');
+            // debug
+            for (var x=0; x<game.map.width; x++) {
+                for (var y=0; y<game.map.height; y++) {
+                    let tn = document.createElement('P');
+                    tn.innerText = game.map.paths[0].route[x][y].distance;
+                    document.getElementById(x.toString() + "," + y.toString()).appendChild(tn);
+                }
+            }
+            // end debug
         }
     }
     if (e.code === 'Digit4') {

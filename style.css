@@ -37,6 +37,16 @@ body[data-mode="place_tower"] .tile.buildable:hover {
     z-index:4;
 }
 
+.tile p {
+    color: white;
+    z-index: 50;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    text-shadow: 0 0 5px BLACK;
+}
+
 #game, #map, #tiles, #entities, #projectiles {
     width:100vw;
     height:100vh;

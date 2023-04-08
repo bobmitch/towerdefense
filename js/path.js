@@ -36,8 +36,12 @@ class Path {
         }
 
         let path_found = this.recalc();
-        console.warn('Path found: ',path_found);
-        console.log(this.route);
+        if (!path_found) {
+            console.warn('Path not found: ', this);
+        }
+        else {
+            //window.game.map.paths.push (new Path(window.game.map, 0, Math.floor(this.height/2), this.width-1, exit_y));
+        }
     }
 
     reset() {
@@ -82,6 +86,7 @@ class Path {
                 });
             }
         }
+        
         return path_found;
     }
 }
