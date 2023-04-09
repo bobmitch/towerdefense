@@ -71,6 +71,9 @@ class Game {
                         }
                     }
                 }
+                
+                window.game.map.render();
+                
                 window.requestAnimationFrame(window.game.step);
                 console.log('starting new game');
             }

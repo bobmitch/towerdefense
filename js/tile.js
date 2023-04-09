@@ -10,6 +10,7 @@ class Tile {
     }
 
     get_path_bg_pos(map) {
+        //var map = window.game.map;
         // for this tile, if passable, return bg pos tuple of dirtpath tiles
         var l = true;
         var t = true;
@@ -20,20 +21,43 @@ class Tile {
                 l = false;
             }
         }
+        else {
+            if (this.y==Math.floor(map.height/2)) {
+                l=true;
+            }
+            else {
+                l=false;
+            }
+        }
         if (this.y>0) {
             if (!map.tiles[this.x][this.y-1].passable) {
                 t = false;
             }
+        }
+        else {
+            t=false;
         }
         if (this.x<map.width-1) {
             if (!map.tiles[this.x+1][this.y].passable) {
                 r = false;
             }
         }
+        else {
+            if (this.y==game.map.paths[0].y2) {
+                // exit
+                r=true;
+            }
+            else {
+                r=false;
+            }
+        }
         if (this.y<map.height-1) {
             if (!map.tiles[this.x][this.y+1].passable) {
                 b = false;
             }
+        }
+        else {
+            b=false;
         }
         
         // row 1

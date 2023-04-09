@@ -26,7 +26,6 @@ class Map {
         // random level //
         this.make_random_path();
         // end random level //
-        this.render();
     }
 
     get_passable_neighbours(px,py, diag=false) {
@@ -71,7 +70,9 @@ class Map {
         var history=[];
         while (x<this.width) {
             if (x==this.width-1 && y==start_end_y) {
-                // reached exit
+                // reached exit - which is passable!
+                this.tiles[x][y].passable = true;
+                this.tiles[x][y].buildable = false;
                 break;
             }
             this.tiles[x][y].passable = true;
