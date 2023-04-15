@@ -54,15 +54,27 @@ document.addEventListener('click',function(e){
             game.map.tiles[x][y].passable = true; // set back to true
         }
         else {
-            game.map.tiles[x][y].buildable = true;
-            /* eval(`
-                game.towers.push ( new ${game.place_tower} ({x:x,y:y}) );
-            `); */
-            game.map.paths[0].recalc();
-            //game.place_tower = null;
-            document.body.dataset.mode=null;
-            game.decmoney(game.place_tower_cost);
-            window.game.map.render();
+            // check entities not affected
+            var ok = true;
+            for (var i=0; i<game.entities.length; i++) {
+                if (game.entities[i].cur_cell.x==x && game.entities[i].cur_cell.y==y) {
+                    ok = false;
+                    break;
+                }                
+            }
+            if (ok) {
+                game.map.tiles[x][y].buildable = true;
+                /* eval(`
+                    game.towers.push ( new ${game.place_tower} ({x:x,y:y}) );
+                `); */
+                game.map.paths[0].recalc();
+                //game.place_tower = null;
+                document.body.dataset.mode=null;
+                game.decmoney(game.place_tower_cost);
+                window.game.map.render();
+            }
+            // reach here, cant alter path, already being used by entity
+            console.warn('Unable to alter path, entity already using it')
         }  
     }
 });
