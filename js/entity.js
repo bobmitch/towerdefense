@@ -21,7 +21,7 @@ class Entity {
         document.getElementById('entities').appendChild(this.el);
         this.time_alive=0;
         this.cur_cell = window.game.map.paths[this.pathindex].route[window.game.map.paths[this.pathindex].x1][window.game.map.paths[this.pathindex].y1];
-        this.next_cell = this.cur_cell.next;
+        //this.next_cell = this.cur_cell.next;
         this.x = (this.cur_cell.x * window.game.tilesize) + window.game.htilesize; // center of init cell
         this.x = 0;
         this.y = (this.cur_cell.y * window.game.tilesize) + window.game.htilesize; // center of init cell
@@ -101,24 +101,29 @@ class Entity {
             this.x = curcel_center_x;
             this.y = curcel_center_y;
 
-            if (this.cur_cell.x==this.next_cell.x) {
-                this.direction[0]=0;
-                this.direction[1] = this.cur_cell.y < this.next_cell.y ? 1 : -1;
+            if (!this.cur_cell.next) {
+                // something broke our current path
             }
             else {
-                this.direction[1]=0;
-                this.direction[0] = this.cur_cell.x < this.next_cell.x ? 1 : -1;
-            }
+                if (this.cur_cell.x == this.cur_cell.next.x) {
+                    this.direction[0]=0;
+                    this.direction[1] = this.cur_cell.y < this.cur_cell.next.y ? 1 : -1;
+                }
+                else {
+                    this.direction[1]=0;
+                    this.direction[0] = this.cur_cell.x < this.cur_cell.next.x ? 1 : -1;
+                }
 
-            this.cur_cell = window.game.map.paths[this.pathindex].route[this.next_cell.x][this.next_cell.y];
-            if (this.cur_cell.next) {
-                this.next_cell = window.game.map.paths[this.pathindex].route[this.cur_cell.next.x][this.next_cell.next.y];
+                // current cell is now the next cell in the path 
+                this.cur_cell = this.cur_cell.next;
+
+                return true;
             }
-            else {
-                // end of the line!!!
-                this.end_of_line();
-                game.declives();
-            }
+            // reach here it's...
+            // end of the line!!!
+            this.end_of_line();
+            game.declives();
+                
             
             //document.getElementById(this.cur_cell.x.toString()+','+this.cur_cell.y.toString()).classList.add('curgoal');
             /* console.log('NEW');
