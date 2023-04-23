@@ -1,3 +1,9 @@
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 * {
     margin:0;
     padding:0;
@@ -180,4 +186,30 @@ div.tower {
     height:100vh;
     height:100dvh;
     border-left:1px solid #aaa;
+    z-index: 10;
+    box-shadow:0 0 10px #222;
+}
+
+#sidepanel_2 {
+    position:absolute;
+    top:0;
+    right:0;
+    width:15rem;
+    padding:2rem;
+    background:#222;
+    color:#eee;
+    height:100vh;
+    height:100dvh;
+    border-left:1px solid #aaa;
+    z-index: 11;
+    box-shadow:0 0 10px #222;
+    transition:all 0.3s ease;
+    transform:translateX(17rem);
+}
+#sidepanel_2.show {
+    transform:translateX(0rem);
+}
+
+.tower.selected {
+    filter:drop-shadow(0 0 2px red);
 }

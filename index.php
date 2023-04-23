@@ -40,6 +40,10 @@
                 </ul>
             </div>
         </div>
+        <div id='sidepanel_2' class=''>
+            <div class='sidepanel_dismiss'>X</div>
+            <p>some stuff here</p>
+        </div>
     </section>
 
     <script type='module' src='/td/main.js'></script>

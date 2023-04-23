@@ -27,6 +27,10 @@ window.pick_up_tower = function(tower_btn) {
 }
 
 document.addEventListener('click',function(e){
+
+    if  (e.target.classList.contains('sidepanel_dismiss')) {
+        dismiss_panel();
+    }
     if ( (document.body.dataset.mode=='place_tower_buildable' || document.body.dataset.mode=='place_tower_both') && e.target.classList.contains('tile') && e.target.classList.contains('buildable')) {
         // place buildable/both tower
         let x = parseInt(e.target.dataset.x);
@@ -77,7 +81,27 @@ document.addEventListener('click',function(e){
             console.warn('Unable to alter path, entity already using it')
         }  
     }
+    console.log(e.target.classList);
+    if (document.body.dataset.mode=='null' && e.target.classList.contains('tower')) {
+        document.body.dataset.mode='tower_selected';
+        e.target.classList.add('selected');
+        // make panel
+        document.getElementById('sidepanel_2').classList.add('show');
+    }
 });
+
+function dismiss_panel() {
+    // called by dismiss panel in index
+    let p = document.getElementById("sidepanel_2");
+    p.classList.remove("show"); 
+    document.body.dataset.mode="null";
+    // unselect towers
+    let sel = document.querySelectorAll('.tower.selected');
+    // remove select class on sels
+    for (var i=0; i<sel.length; i++) {
+        sel[i].classList.remove('selected');
+    }
+}
 
 
 document.addEventListener('keyup',function(e){
