@@ -3,6 +3,7 @@ import { Tower } from './tower.js';
 class Barrier extends Tower {
     constructor(config) {
         super(config);
+        this.className = 'Barrier';
         this.type = 'barrier';
         this.range = 256;
         this.rotates = true;
@@ -14,6 +15,9 @@ class Barrier extends Tower {
         this.rof = 1; // shots per sec
         this.last_fired = 0;
         this.angle = 0;
+        this.placement = 'path';
+        this.base_cost = 20;
+        this.maxlevel = 1;
         console.log("Barrier created!");
     }
 

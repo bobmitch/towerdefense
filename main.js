@@ -13,12 +13,14 @@ function rr(a,b) {
 }
 
 window.pick_up_tower = function(tower_btn) {
-    let cost = parseInt(tower_btn.dataset.cost);
-    if (cost<=game.money) {
-        game.place_tower = tower_btn.dataset.tower;
-        game.place_tower_placement = tower_btn.dataset.placement;
-        game.place_tower_cost = cost;
-        document.body.dataset.mode = 'place_tower_' + game.place_tower_placement;
+    // create temp tower of type clicked
+    eval(`
+            game.place_tower = new ${tower_btn.dataset.tower} ({x:99,y:99}) ;
+    `);
+    //console.log(game.place_tower);
+    let cost = game.place_tower.cost();
+    if (cost <= game.money) {
+        document.body.dataset.mode = 'place_tower_' + game.place_tower.placement;
     }
     else {
         // can't afford it
@@ -32,18 +34,22 @@ document.addEventListener('click',function(e){
         dismiss_panel();
     }
     if ( (document.body.dataset.mode=='place_tower_buildable' || document.body.dataset.mode=='place_tower_both') && e.target.classList.contains('tile') && e.target.classList.contains('buildable')) {
+        console.log('Placing tower on tile');
         // place buildable/both tower
         let x = parseInt(e.target.dataset.x);
         let y = parseInt(e.target.dataset.y);
-        // dynamically generate tower instance
+        // dynamically generate new tower instance
         eval(`
-            game.towers.push ( new ${game.place_tower} ({x:x,y:y}) );
+            game.towers.push ( new ${game.place_tower.className} ({x:x,y:y}) );
         `);
-        game.place_tower = null;
+        game.decmoney(game.place_tower.cost());
+        game.place_tower.remove(); // remove temp tower
+        game.place_tower = null; // clear temp tower from game
         document.body.dataset.mode=null;
-        game.decmoney(game.place_tower_cost);
+        
     }
     if ( (document.body.dataset.mode=='place_tower_path' || document.body.dataset.mode=='place_tower_both') && e.target.classList.contains('tile') && e.target.classList.contains('passable')) {
+        console.log('Placing tower on path');
         // place path/both tower
         // TODO: check path is good! (ie. not blocking exit)
         // also check no entities in 'cell' when placed
@@ -73,15 +79,17 @@ document.addEventListener('click',function(e){
                 `); */
                 game.map.paths[0].recalc();
                 //game.place_tower = null;
+                game.decmoney(game.place_tower.cost());
+                game.place_tower.remove(); // remove temp tower
+                game.place_tower = null; // clear temp tower from game
                 document.body.dataset.mode=null;
-                game.decmoney(game.place_tower_cost);
                 window.game.map.render();
             }
             // reach here, cant alter path, already being used by entity
             console.warn('Unable to alter path, entity already using it')
         }  
     }
-    console.log(e.target.classList);
+
     if (document.body.dataset.mode=='null' && e.target.classList.contains('tower')) {
         document.body.dataset.mode='tower_selected';
         e.target.classList.add('selected');

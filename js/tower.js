@@ -16,6 +16,7 @@ window.get_angle = function(cx, cy, ex, ey) {
 
 class Tower {
     constructor(config={}) {
+        this.className = 'Tower';
         this.type = config.type ?? 'none';
         this.xcoord = config.x ?? 0;
         this.ycoord = config.y ?? 0;
@@ -37,9 +38,17 @@ class Tower {
         this.z = config.z ?? 3; // z index?
         this.el.style.left = (this.tlx).toString() + 'px';
         this.el.style.top = (this.tly).toString() + 'px';
+
+        this.level = config.level ?? 1;
+        this.maxlevel = config.maxlevel ?? 3;
+        this.base_cost = config.base_cost ?? 5;
+        this.upgrade_cost_multipliers = [2]; // defaults to 2
+        this.placement = 'buildable'; // buildable or path - more to come?
+
         document.getElementById('towers').appendChild(this.el);
         console.log('Tower created',this);
     }
+
 
     update(d) {
         this.time_alive+=d;
@@ -56,6 +65,20 @@ class Tower {
         }
         else {
             console.warn('Unable to remove tower - could not determine index in array',this);
+        }
+    }
+
+    cost() {
+        // calc cost based on current level
+        if (this.level==1) {
+            return this.base_cost;
+        }
+        let index = this.level-1;
+        if (this.level > this.upgrade_cost_multipliers.length) {
+            return this.base_cost * this.upgrade_cost_multipliers[index];
+        }
+        else {
+            return this.base_cost * this.upgrade_cost_multipliers[this.upgrade_cost_multipliers.length-1];
         }
     }
 

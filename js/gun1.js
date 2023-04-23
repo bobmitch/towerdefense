@@ -4,6 +4,7 @@ import { Projectile } from './projectile.js';
 class Gun1 extends Tower {
     constructor(config) {
         super(config);
+        this.className = 'Gun1';
         this.type = 'gun1';
         this.range = 256;
         this.rotates = true;

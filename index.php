@@ -33,10 +33,10 @@
             </div>
             <div id='buildmenu'>
                 <ul>
-                    <li><button onclick='pick_up_tower(this)' data-tower='Gun1' data-placement='buildable' data-cost='100'>Gun 1</button></li>
+                    <li><button onclick='pick_up_tower(this)' data-tower='Gun1'>Gun 1</button></li>
                 </ul>
                 <ul>
-                    <li><button onclick='pick_up_tower(this)' data-tower='Demo' data-placement='path' data-cost='1'>Remove Road</button></li>
+                    <li><button onclick='pick_up_tower(this)' data-tower='Barrier'>Remove Road</button></li>
                 </ul>
             </div>
         </div>
