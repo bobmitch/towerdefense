@@ -51,14 +51,18 @@ class Tower {
     }
 
     render_panel() {
+        var upgrade_button = `<button disabled>Upgrade</button>`;
+        if (this.level<this.maxlevel) {
+            let upgrade_cost = this.next_level_cost().toString();
+            upgrade_button = `<button onclick="document.querySelector('.tower.selected').tower.upgrade();">Upgrade (${upgrade_cost})</button>`;
+        }
         var markup = `
             <div class="panel">
                 <h3>${this.className}</h3>
                 <p>Level: ${this.level}</p>
                 <p>Cost: ${this.cost()}</p>
                 <p>Range: ${this.range}</p>
-                <p>Placement: ${this.placement}</p>
-                <p>Direction: ${this.direction}</p>
+                <p>${upgrade_button}</p>
             </div>
         `;
         markup += this.render_panel_custom();
@@ -88,17 +92,33 @@ class Tower {
     }
 
     cost() {
+        return this.base_cost;
+    }
+
+    upgrade() {
+        if (this.level<this.maxlevel) {
+            this.level++;
+            if (typeof this.custom_upgrade === 'function') {
+                this.custom_upgrade();
+            }
+            console.log('Tower upgraded',this);
+        }
+    }
+
+    next_level_cost() {
         // calc cost based on current level
-        if (this.level==1) {
-            return this.base_cost;
+        if (this.level<this.maxlevel) {
+            let index = this.level; // not -1
+            if (index >= this.upgrade_cost_multipliers.length) {
+                // built in multiplier
+                return this.base_cost * this.level * this.upgrade_cost_multipliers[this.upgrade_cost_multipliers.length-1];
+            }
+            else {
+                // defined multiplier from array
+                return this.base_cost * this.upgrade_cost_multipliers[index];
+            }
         }
-        let index = this.level-1;
-        if (this.level > this.upgrade_cost_multipliers.length) {
-            return this.base_cost * this.upgrade_cost_multipliers[index];
-        }
-        else {
-            return this.base_cost * this.upgrade_cost_multipliers[this.upgrade_cost_multipliers.length-1];
-        }
+        return false;
     }
 
     get_entities_within_range() {

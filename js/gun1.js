@@ -47,6 +47,12 @@ class Gun1 extends Tower {
         }
     }
 
+    custom_upgrade() {
+        this.range = 256 + (32 * this.level);
+        this.rof = this.level * 0.8;
+        console.log('custom tower upgrade applied');
+    }
+
 }
 
 export { Gun1 };
