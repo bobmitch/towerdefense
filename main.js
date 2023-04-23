@@ -94,7 +94,10 @@ document.addEventListener('click',function(e){
         document.body.dataset.mode='tower_selected';
         e.target.classList.add('selected');
         // make panel
+        let markup = e.target.tower.render_panel();
+        document.getElementById('sidepanel_2_content').innerHTML = markup;
         document.getElementById('sidepanel_2').classList.add('show');
+        console.log(e.target);
     }
 });
 

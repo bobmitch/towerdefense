@@ -38,6 +38,7 @@ class Tower {
         this.z = config.z ?? 3; // z index?
         this.el.style.left = (this.tlx).toString() + 'px';
         this.el.style.top = (this.tly).toString() + 'px';
+        this.el.tower = this; // link to self in element :)
 
         this.level = config.level ?? 1;
         this.maxlevel = config.maxlevel ?? 3;
@@ -49,6 +50,24 @@ class Tower {
         console.log('Tower created',this);
     }
 
+    render_panel() {
+        var markup = `
+            <div class="panel">
+                <h3>${this.className}</h3>
+                <p>Level: ${this.level}</p>
+                <p>Cost: ${this.cost()}</p>
+                <p>Range: ${this.range}</p>
+                <p>Placement: ${this.placement}</p>
+                <p>Direction: ${this.direction}</p>
+            </div>
+        `;
+        markup += this.render_panel_custom();
+        return markup;
+    }
+
+    render_panel_custom() {
+        return `<p>Custom panel for ${this.className}</p>`;
+    }
 
     update(d) {
         this.time_alive+=d;

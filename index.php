@@ -42,7 +42,7 @@
         </div>
         <div id='sidepanel_2' class=''>
             <div class='sidepanel_dismiss'>X</div>
-            <p>some stuff here</p>
+            <div id='sidepanel_2_content'></div>
         </div>
     </section>
 
