@@ -2,10 +2,10 @@ class Projectile {
     constructor(config={}) {
         this.type = config.type ?? 'none';
         this.fired_by = config.fired_by ?? null;
-        this.speed = 40;
+        this.speed = config.speed ?? 40;
         this.width = 5;
         this.height = 5;
-        this.damage = 2;
+        this.damage = config.damage ?? 2;
         this.r = this.width/2; // radius, hitbox
         this.direction = config.direction ; // unit vector array .e.g [1,0]
         this.frame = config.frame ?? 0;

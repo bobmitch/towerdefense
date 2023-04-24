@@ -16,6 +16,7 @@ class Gun1 extends Tower {
         this.rof = 1; // shots per sec
         this.last_fired = 0;
         this.angle = 0;
+        this.max_level = 4;
         console.log("Gun 1 created!");
     }
 
@@ -39,7 +40,7 @@ class Gun1 extends Tower {
                         var dir=[0,0];
                         dir[0] = Math.cos(rad);
                         dir[1] = Math.sin(rad);
-                        window.game.projectiles.push ( new Projectile({x:this.x, y:this.y, fired_by:this, direction:dir}));
+                        window.game.projectiles.push ( new Projectile({x:this.x, y:this.y, fired_by:this, direction:dir, damage:2+(this.level), speed:40+(this.level*20)}));
                         this.last_fired = this.time_alive;
                     }
                 }
@@ -48,8 +49,8 @@ class Gun1 extends Tower {
     }
 
     custom_upgrade() {
-        this.range = 256 + (32 * this.level);
-        this.rof = this.level * 0.8;
+        this.range = 256 + (16 * this.level);
+        this.rof = this.level * 1.1;
         console.log('custom tower upgrade applied');
     }
 
